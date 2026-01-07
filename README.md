@@ -2,6 +2,9 @@
 
 This map predicts the timing, location, and magnitude of Pacific herring spawning events for 2026 based on historical data from 2016-2025. The analysis produces an interactive map showing spawn probability, predicted dates, and expected biomass at historical spawning locations.
 
+## Author
+Developed by Jake Dingwall
+
 ## Data Source
 
 **Dataset**: Pacific Herring Spawn Index Data (2025 spawn Edition)  
@@ -176,17 +179,6 @@ The Leaflet map displays:
 - Does not account for fish population dynamics
 - Assumes spawn probability independent across locations
 - Limited to locations with historical measurements
-
-## Author
-
-Developed by Jake Dingwall
-
-## Data Citation
-Fisheries and Oceans Canada (DFO). (2026). Pacific Herring Spawn Index Data [Data set]. https://open.canada.ca/data/en/dataset/d892511c-d851-4f85-a0ec-708bc05d2810
-
-## License
-
-This project is intended for research and educational purposes. Please cite appropriately if used in publications or reports.
 
 ---
 
