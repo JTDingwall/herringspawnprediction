@@ -215,5 +215,5 @@ docs_dir <- file.path(project_root, "docs")
 if (!dir.exists(docs_dir)) {
   dir.create(docs_dir)
 }
-saveWidget(spawn_map, file.path(docs_dir, "index.html"))
+saveWidget(spawn_map, file.path(docs_dir, "index.html"), selfcontained = TRUE)
 cat("\nMap saved to:", file.path(docs_dir, "index.html"), "\n")
