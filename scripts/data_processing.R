@@ -12,7 +12,6 @@ for (pkg in required_packages) {
 theme_set(theme_pubr())
 
 # Get the project root directory from this script's location
-# This works whether you run from RStudio, source the script, or run interactively
 if (requireNamespace("rstudioapi", quietly = TRUE) && rstudioapi::isAvailable()) {
   # Running in RStudio
   script_dir <- dirname(rstudioapi::getSourceEditorContext()$path)
@@ -187,10 +186,7 @@ spawn_map <- leaflet(predictions_2026) %>%
       "Spawn Probability: <b>", round(spawn_probability * 100, 1), "%</b><br/>",
       "Likely Date: <b>", format(likely_date, "%B %d"), "</b><br/>",
       "  (95% CI: ", format(likely_date_lower, "%b %d"), " - ", 
-                     format(likely_date_upper, "%b %d"), ")<br/>",
-      "Likely Biomass: <b>", round(likely_index, 1), "</b> tons<br/>",
-      "  (95% CI: ", round(magnitude_lower_95, 1), " - ", 
-                     round(magnitude_upper_95, 1), " tons)<br/><br/>",
+                     format(likely_date_upper, "%b %d"), ")<br/><br/>",
       
       "<b>Historical Data (2016-2025):</b><br/>",
       "Measured Spawns: ", n_measured_events, " events<br/>",

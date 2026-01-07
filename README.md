@@ -152,16 +152,15 @@ For 2026, each location receives:
 
 - **Spawn probability**: 0-100% likelihood of spawning
 - **Likely date**: Expected start date with 95% CI
-- **Likely biomass**: Expected index with 95% CI
 - **Historical context**: Past events, averages, maxima
 
 ## Interactive Map Features
 
 The Leaflet map displays:
 
-- **Circle size**: Proportional to likely biomass (sqrt transformation for visual clarity)
+- **Circle size**: Proportional to historical average biomass (sqrt transformation for visual clarity)
 - **Circle color**: Spawn probability (yellow = low, red = high)
-- **Popups**: Detailed predictions and historical data
+- **Popups**: Spawn probability, predicted timing, and historical data
 - **Labels**: Location names with probability on hover
 - **Basemap**: Esri Ocean Basemap for geographic context
 
