@@ -220,15 +220,27 @@ print(spawn_map)
 # Create enhanced page with header (will be saved below after docs_dir is created)
 full_page <- tagList(
   tags$div(
-    style = "text-align: center; padding: 20px; background-color: #f0f0f0;",
-    tags$h1("Pacific Herring Spawn Predictions 2026"),
-    tags$p("This interactive map shows predicted herring spawn locations for 2026 based on historical data from 2016-2025."),
-    tags$p(
-      tags$a(href = "https://github.com/JTDingwall/herringspawnprediction", 
-             "View Project on GitHub")
-    )
+    style = "text-align: center; padding: 20px; background-color: #2c5f7d; color: white; font-family: Arial, sans-serif;",
+    tags$h1(style = "margin-bottom: 10px; font-size: 2em;", "Pacific Herring Spawn Predictions 2026"),
+    tags$p(style = "font-size: 1.1em; margin: 10px auto; max-width: 800px;", 
+           "This interactive map predicts Pacific herring spawning locations and timing for 2026 based on 10 years of historical data (2016-2025) from Fisheries and Oceans Canada."),
+    tags$p(style = "margin: 5px; font-size: 0.95em;",
+           tags$strong("How to use:"), " Click on any circle to see detailed predictions. Circle size = predicted biomass. Circle color = spawn probability (yellow = low, red = high).")
   ),
-  spawn_map
+  spawn_map,
+  tags$div(
+    style = "text-align: center; padding: 15px; background-color: #f0f0f0; border-top: 2px solid #2c5f7d;",
+    tags$p(style = "margin: 5px; font-size: 0.9em;",
+      tags$strong("Data Source:"), " DFO Pacific Herring Spawn Index | ",
+      tags$strong("Analysis Period:"), " 2016-2025 | ",
+      tags$strong("Predictions:"), " Historical averages with 95% confidence intervals"
+    ),
+    tags$p(style = "margin: 10px;",
+      tags$a(href = "https://github.com/JTDingwall/herringspawnprediction", 
+             style = "color: #2c5f7d; font-weight: bold; text-decoration: none; font-size: 1em;",
+             "📊 View Methodology & Code on GitHub")
+    )
+  )
 )
 # Save map as HTML for GitHub Pages
 library(htmlwidgets)
