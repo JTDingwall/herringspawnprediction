@@ -16,7 +16,9 @@ The dataset includes:
 - Location metadata (codes, names, statistical areas)
 
 
-**[View Interactive 2026 Spawn Prediction Map →](https://jtdingwall.github.io/herringspawnprediction/)**
+[![Map Preview](path/to/screenshot.png)](https://jtdingwall.github.io/herringspawnprediction/map.html)
+
+Click the image above to view the interactive map.
 
 
 ## Data Processing Decisions
