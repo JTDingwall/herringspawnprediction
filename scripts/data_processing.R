@@ -208,59 +208,12 @@ spawn_map <- leaflet(predictions_2026) %>%
 # Print the map
 print(spawn_map)
 
-# ========================================
-# SUMMARY STATISTICS
-# ========================================
-
-cat("\n================================================\n")
-cat("  2026 HERRING SPAWN PREDICTIONS\n")
-cat("================================================\n\n")
-
-cat("Analysis Period: 2016-2025\n")
-cat(sprintf("Total locations analyzed: %d\n", nrow(predictions_2026)))
-cat(sprintf("High probability locations (>70%%): %d\n", 
-            sum(predictions_2026$spawn_probability > 0.7)))
-cat(sprintf("Medium probability locations (50-70%%): %d\n", 
-            sum(predictions_2026$spawn_probability > 0.5 & predictions_2026$spawn_probability <= 0.7)))
-cat(sprintf("Low probability locations (30-50%%): %d\n\n", 
-            sum(predictions_2026$spawn_probability >= 0.3 & predictions_2026$spawn_probability <= 0.5)))
-
-cat(sprintf("Predicted spawn season: %s to %s\n",
-            format(min(predictions_2026$predicted_date, na.rm = TRUE), "%B %d"),
-            format(max(predictions_2026$predicted_date, na.rm = TRUE), "%B %d")))
-cat(sprintf("Total predicted biomass (weighted by probability): %.1f tons\n\n",
-            sum(predictions_2026$predicted_index * predictions_2026$spawn_probability, na.rm = TRUE)))
-
-# Top 10 locations by predicted magnitude (with probability > 50%)
-cat("================================================\n")
-cat("  TOP 10 LOCATIONS BY PREDICTED BIOMASS\n")
-cat("  (Spawn Probability > 50%)\n")
-cat("================================================\n\n")
-
-top_locations <- predictions_2026 %>%
-  filter(spawn_probability > 0.5) %>%
-  arrange(desc(predicted_index)) %>%
-  head(10) %>%
-  mutate(
-    Date_Range = paste(format(predicted_date_lower, "%b %d"), "-", 
-                      format(predicted_date_upper, "%b %d")),
-    Biomass_Range = paste(round(magnitude_lower_95, 1), "-", 
-                         round(magnitude_upper_95, 1), "tons")
-  ) %>%
-  select(LocationName, spawn_probability, predicted_date, Date_Range, 
-         predicted_index, Biomass_Range, n_measured_events)
-
-print(top_locations, n = 10)
-
-cat("\n================================================\n")
-cat("  EARLIEST PREDICTED SPAWNS (>50% probability)\n")
-cat("================================================\n\n")
-
-early_spawns <- predictions_2026 %>%
-  filter(spawn_probability > 0.5) %>%
-  arrange(predicted_date) %>%
-  head(10) %>%
-  select(LocationName, predicted_date, predicted_date_lower, 
-         predicted_date_upper, spawn_probability, predicted_index)
-
-print(early_spawns, n = 10)
+# Save map as HTML for GitHub Pages
+library(htmlwidgets)
+# Create docs folder if it doesn't exist
+docs_dir <- file.path(project_root, "docs")
+if (!dir.exists(docs_dir)) {
+  dir.create(docs_dir)
+}
+saveWidget(spawn_map, file.path(docs_dir, "index.html"))
+cat("\nMap saved to:", file.path(docs_dir, "index.html"), "\n")
