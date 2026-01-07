@@ -13,8 +13,14 @@ theme_set(theme_pubr())
 
 # Get the project root directory from this script's location
 # This works whether you run from RStudio, source the script, or run interactively
-script_dir <- dirname(rstudioapi::getSourceEditorContext()$path)
-project_root <- dirname(script_dir)  # Go up one level from scripts/ to project root
+if (requireNamespace("rstudioapi", quietly = TRUE) && rstudioapi::isAvailable()) {
+  # Running in RStudio
+  script_dir <- dirname(rstudioapi::getSourceEditorContext()$path)
+  project_root <- dirname(script_dir)
+} else {
+  # Running from command line - use current working directory
+  project_root <- getwd()
+}
 
 # Load the data using path relative to project root
 index_raw <- read.csv(file.path(project_root, "raw_data", "Pacific_herring_spawn_index_data_2025_EN.csv"))
@@ -143,6 +149,9 @@ predictions_2026 <- location_summary %>%
       years_since_spawn == 2 ~ 0.5,      # Spawned in 2023
       years_since_spawn <= 5 ~ 0.4,      # Spawned 2020-2022
       TRUE ~ 0.2                          # Older than 5 years
+    ),
+    consistency_score = 1 - (sd_index / (avg_index + 1)),  # Higher score for consistent spawns
+    spawn_probability = pmin(1, freq_score * 0.5 + recency_score * 0.3 + consistency_score * 0.2),
     predicted_date = as.Date(predicted_doy - 1, origin = "2026-01-01"),
     predicted_date_lower = as.Date(timing_lower_95 - 1, origin = "2026-01-01"),
     predicted_date_upper = as.Date(timing_upper_95 - 1, origin = "2026-01-01")
@@ -215,5 +224,12 @@ docs_dir <- file.path(project_root, "docs")
 if (!dir.exists(docs_dir)) {
   dir.create(docs_dir)
 }
-saveWidget(spawn_map, file.path(docs_dir, "index.html"), selfcontained = TRUE)
+
+# Save widget with dependencies in separate folder (works better with GitHub Pages)
+htmlwidgets::saveWidget(
+  spawn_map, 
+  file.path(docs_dir, "index.html"),
+  selfcontained = FALSE,
+  title = "Pacific Herring Spawn Predictions 2026"
+)
 cat("\nMap saved to:", file.path(docs_dir, "index.html"), "\n")
