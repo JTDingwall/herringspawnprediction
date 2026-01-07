@@ -217,6 +217,26 @@ spawn_map <- leaflet(predictions_2026) %>%
 # Print the map
 print(spawn_map)
 
+full_page <- tagList(
+  tags$div(
+    style = "text-align: center; padding: 20px; background-color: #f0f0f0;",
+    tags$h1("Pacific Herring Spawn Predictions 2026"),
+    tags$p("This interactive map shows predicted herring spawn locations for 2026."),
+    tags$p(
+      tags$a(href = "https://github.com/JTDingwall/herringspawnprediction", 
+             "View Project on GitHub")
+    )
+  ),
+  spawn_map
+)
+
+# Save the enhanced page
+htmlwidgets::saveWidget(
+  full_page,
+  file.path(docs_dir, "index.html"),
+  selfcontained = FALSE,
+  title = "Pacific Herring Spawn Predictions 2026"
+)
 # Save map as HTML for GitHub Pages
 library(htmlwidgets)
 # Create docs folder if it doesn't exist
