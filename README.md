@@ -15,8 +15,10 @@ The dataset includes:
 - Biomass estimates (Surface, Macrocystis, Understory indices)
 - Location metadata (codes, names, statistical areas)
 
+## Interactive Map
+[![Map Preview](https://github.com/JTDingwall/herringspawnprediction/blob/main/raw_data/map_screenshot.png? raw=true)](https://jtdingwall.github.io/herringspawnprediction/)
 
-**[View Interactive 2026 Spawn Prediction Map →](https://jtdingwall.github.io/herringspawnprediction/)**
+*Click the image above to view the interactive map.*
 
 
 ## Data Processing Decisions
