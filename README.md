@@ -7,6 +7,9 @@ Note that it does **NOT** account for stock assessment predictions and is solely
 ## Author
 Developed by Jake Dingwall
 
+## Note on Howe Sound
+Howe Sound has started to receive spawn in the last few years but does not have an index assessment in the dataset. As such, it is not reflected on the map but [see the work being done](https://howesoundguide.ca/search-for-slhawt-herring/) by the Marine Stewarship Initiative and Squamish Nation. 
+
 ## Data Source
 
 **Dataset**: Pacific Herring Spawn Index Data (2025 spawn Edition)  
