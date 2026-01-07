@@ -19,6 +19,7 @@ The dataset includes:
 [![Map Preview](raw_data/map_screenshot.png)](https://jtdingwall.github.io/herringspawnprediction/)
 
 ***Click the image above to view the interactive map.***
+
 Clicking on a spawning point will provide the estimated date of spawn.
 
 
