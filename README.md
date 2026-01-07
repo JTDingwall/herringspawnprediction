@@ -1,6 +1,6 @@
 # Pacific Herring Spawn Prediction for 2026
 
-This map predicts the timing, location, and magnitude of Pacific herring spawning events for 2026 based on historical data from 2016-2025. The analysis produces an interactive map showing spawn probability, predicted dates, and expected biomass at historical spawning locations.
+This map shows the likely timing, location, and magnitude of Pacific herring spawning events for 2026 based on historical data from 2016-2025. The analysis produces an interactive map showing spawn probability, likely dates, and expected biomass at historical spawning locations.
 
 ## Data Source
 
@@ -41,7 +41,7 @@ index = Understory + Macrocystis + Surface
 
 **Rationale**:
 - Some locations have recorded spawns but zero biomass (spawn known to occur but not surveyed)
-- Predictions require actual biomass measurements, not just presence/absence
+- Likelihood assessments require actual biomass measurements, not just presence/absence
 - Ensures predictions are based on core spawns, not one offs
 
 **Implementation**:
@@ -69,8 +69,8 @@ locations_with_data <- spawn_data %>%
 **Method**: Historical average DOY ± 95% confidence intervals
 
 **Formula**:
-- Predicted date = Average DOY across 2016-2025
-- 95% CI = Predicted DOY ± 1.96 × Standard Deviation
+- Likely date = Average DOY across 2016-2025
+- 95% CI = Likely DOY ± 1.96 × Standard Deviation
 
 **Example**: 
 - Cape Lazo: Average DOY = 68 (March 9)
@@ -82,7 +82,7 @@ locations_with_data <- spawn_data %>%
 **Method**: Historical average biomass index ± 95% confidence intervals
 
 **Formula**:
-- Predicted biomass = Average index (excluding zeros)
+- Likely biomass = Average index (excluding zeros)
 - 95% CI = Average ± 1.96 × Standard Deviation
 
 **Rationale**:
@@ -148,15 +148,15 @@ For each location, we calculate:
 For 2026, each location receives:
 
 - **Spawn probability**: 0-100% likelihood of spawning
-- **Predicted date**: Expected start date with 95% CI
-- **Predicted biomass**: Expected index with 95% CI
+- **Likely date**: Expected start date with 95% CI
+- **Likely biomass**: Expected index with 95% CI
 - **Historical context**: Past events, averages, maxima
 
 ## Interactive Map Features
 
 The Leaflet map displays:
 
-- **Circle size**: Proportional to predicted biomass (sqrt transformation for visual clarity)
+- **Circle size**: Proportional to likely biomass (sqrt transformation for visual clarity)
 - **Circle color**: Spawn probability (yellow = low, red = high)
 - **Popups**: Detailed predictions and historical data
 - **Labels**: Location names with probability on hover

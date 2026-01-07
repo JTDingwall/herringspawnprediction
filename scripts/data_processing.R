@@ -123,14 +123,14 @@ predictions_2026 <- location_summary %>%
     Year = 2026,
     
     # TIMING PREDICTIONS - Use historical average for transparency
-    predicted_doy = avg_start_doy,
+    likely_doy = avg_start_doy,
     
     # Calculate timing variability (95% prediction interval)
-    timing_lower_95 = pmax(1, predicted_doy - 1.96 * sd_start_doy),
-    timing_upper_95 = pmin(365, predicted_doy + 1.96 * sd_start_doy),
+    timing_lower_95 = pmax(1, likely_doy - 1.96 * sd_start_doy),
+    timing_upper_95 = pmin(365, likely_doy + 1.96 * sd_start_doy),
     
     # MAGNITUDE PREDICTIONS - Use historical average for transparency
-    predicted_index = avg_index,
+    likely_index = avg_index,
     
     # Calculate magnitude variability (95% prediction interval)
     # Using standard deviation on log scale for better intervals
@@ -152,9 +152,9 @@ predictions_2026 <- location_summary %>%
     ),
     consistency_score = 1 - (sd_index / (avg_index + 1)),  # Higher score for consistent spawns
     spawn_probability = pmin(1, freq_score * 0.5 + recency_score * 0.3 + consistency_score * 0.2),
-    predicted_date = as.Date(predicted_doy - 1, origin = "2026-01-01"),
-    predicted_date_lower = as.Date(timing_lower_95 - 1, origin = "2026-01-01"),
-    predicted_date_upper = as.Date(timing_upper_95 - 1, origin = "2026-01-01")
+    likely_date = as.Date(likely_doy - 1, origin = "2026-01-01"),
+    likely_date_lower = as.Date(timing_lower_95 - 1, origin = "2026-01-01"),
+    likely_date_upper = as.Date(timing_upper_95 - 1, origin = "2026-01-01")
   )
 
 # ========================================
@@ -163,17 +163,17 @@ predictions_2026 <- location_summary %>%
 
 # Create color palettes
 prob_pal <- colorNumeric(palette = "YlOrRd", domain = predictions_2026$spawn_probability)
-mag_pal <- colorNumeric(palette = "Blues", domain = predictions_2026$predicted_index)
+mag_pal <- colorNumeric(palette = "Blues", domain = predictions_2026$likely_index)
 
 # Create interactive leaflet map
 spawn_map <- leaflet(predictions_2026) %>%
   addProviderTiles(providers$Esri.OceanBasemap) %>%
   
-  # Add circle markers sized by predicted magnitude, colored by probability
+  # Add circle markers sized by likely magnitude, colored by probability
   addCircleMarkers(
     lng = ~Longitude,
     lat = ~Latitude,
-    radius = ~sqrt(predicted_index) / 5,  # Scale radius by predicted biomass
+    radius = ~sqrt(likely_index) / 5,  # Scale radius by likely biomass
     color = ~prob_pal(spawn_probability),
     fillColor = ~prob_pal(spawn_probability),
     fillOpacity = 0.7,
@@ -185,10 +185,10 @@ spawn_map <- leaflet(predictions_2026) %>%
       
       "<b>2026 Predictions:</b><br/>",
       "Spawn Probability: <b>", round(spawn_probability * 100, 1), "%</b><br/>",
-      "Predicted Date: <b>", format(predicted_date, "%B %d"), "</b><br/>",
-      "  (95% CI: ", format(predicted_date_lower, "%b %d"), " - ", 
-                     format(predicted_date_upper, "%b %d"), ")<br/>",
-      "Predicted Biomass: <b>", round(predicted_index, 1), "</b> tons<br/>",
+      "Likely Date: <b>", format(likely_date, "%B %d"), "</b><br/>",
+      "  (95% CI: ", format(likely_date_lower, "%b %d"), " - ", 
+                     format(likely_date_upper, "%b %d"), ")<br/>",
+      "Likely Biomass: <b>", round(likely_index, 1), "</b> tons<br/>",
       "  (95% CI: ", round(magnitude_lower_95, 1), " - ", 
                      round(magnitude_upper_95, 1), " tons)<br/><br/>",
       
@@ -223,9 +223,9 @@ full_page <- tagList(
     style = "text-align: center; padding: 20px; background-color: #2c5f7d; color: white; font-family: Arial, sans-serif;",
     tags$h1(style = "margin-bottom: 10px; font-size: 2em;", "Pacific Herring Spawn Predictions 2026"),
     tags$p(style = "font-size: 1.1em; margin: 10px auto; max-width: 800px;", 
-           "This interactive map predicts Pacific herring spawning locations and timing for 2026 based on 10 years of historical data (2016-2025) from Fisheries and Oceans Canada."),
+           "This interactive map shows likely Pacific herring spawning locations and timing for 2026 based on 10 years of historical data (2016-2025) from Fisheries and Oceans Canada."),
     tags$p(style = "margin: 5px; font-size: 0.95em;",
-           tags$strong("How to use:"), " Click on any circle to see detailed predictions. Circle size = predicted biomass. Circle color = spawn probability (yellow = low, red = high).")
+           tags$strong("How to use:"), " Click on any circle to see detailed predictions. Circle size = likely biomass. Circle color = spawn probability (yellow = low, red = high).")
   ),
   spawn_map,
   tags$div(
