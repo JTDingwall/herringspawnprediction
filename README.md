@@ -16,7 +16,7 @@ The dataset includes:
 - Location metadata (codes, names, statistical areas)
 
 ## Interactive Map
-[![Map Preview](raw_data/map_screenshot.png)](https://jtdingwall.github.io/herringspawnprediction/map.html)
+[![Map Preview](https://github.com/JTDingwall/herringspawnprediction/blob/main/raw_data/map_screenshot.png? raw=true)(https://jtdingwall.github.io/herringspawnprediction/)
 
 *Click the image above to view the interactive map.*
 
