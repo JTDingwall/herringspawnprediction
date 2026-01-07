@@ -233,3 +233,15 @@ htmlwidgets::saveWidget(
   title = "Pacific Herring Spawn Predictions 2026"
 )
 cat("\nMap saved to:", file.path(docs_dir, "index.html"), "\n")
+
+
+# Fix potential encoding issues that cause Quirks Mode
+index_path <- file.path(docs_dir, "index.html")
+
+# Read the file and ensure proper encoding
+html_content <- readLines(index_path, warn = FALSE, encoding = "UTF-8")
+
+# Write back with UTF-8 encoding (no BOM)
+writeLines(html_content, index_path, useBytes = FALSE)
+
+cat("\nMap saved to:", index_path, "\n")
