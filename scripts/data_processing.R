@@ -217,25 +217,18 @@ spawn_map <- leaflet(predictions_2026) %>%
 # Print the map
 print(spawn_map)
 
+# Create enhanced page with header (will be saved below after docs_dir is created)
 full_page <- tagList(
   tags$div(
     style = "text-align: center; padding: 20px; background-color: #f0f0f0;",
     tags$h1("Pacific Herring Spawn Predictions 2026"),
-    tags$p("This interactive map shows predicted herring spawn locations for 2026."),
+    tags$p("This interactive map shows predicted herring spawn locations for 2026 based on historical data from 2016-2025."),
     tags$p(
       tags$a(href = "https://github.com/JTDingwall/herringspawnprediction", 
              "View Project on GitHub")
     )
   ),
   spawn_map
-)
-
-# Save the enhanced page
-htmlwidgets::saveWidget(
-  full_page,
-  file.path(docs_dir, "index.html"),
-  selfcontained = FALSE,
-  title = "Pacific Herring Spawn Predictions 2026"
 )
 # Save map as HTML for GitHub Pages
 library(htmlwidgets)
@@ -245,9 +238,9 @@ if (!dir.exists(docs_dir)) {
   dir.create(docs_dir)
 }
 
-# Save widget with dependencies in separate folder (works better with GitHub Pages)
+# Save enhanced page with dependencies in separate folder (works better with GitHub Pages)
 htmlwidgets::saveWidget(
-  spawn_map, 
+  full_page, 
   file.path(docs_dir, "index.html"),
   selfcontained = FALSE,
   title = "Pacific Herring Spawn Predictions 2026"
