@@ -1,6 +1,6 @@
 # Pacific Herring Spawn Prediction for 2026
 
-This map predicts the timing, location, and magnitude of Pacific herring spawning events for 2026 based on historical data from 2016-2025. The analysis produces an interactive map showing spawn probability, predicted dates, and expected biomass at historical spawning locations.
+This map predicts the timing, location, and magnitude of Pacific herring spawning events for 2026 based on historical data from 2016-2025. The prediction is made **solely** using the previous years of spawning index assessments. As such, it is a simple estimate and does not consider changes in population, spawning habitat quality, climate change, etc. The analysis produces an interactive map showing spawn probability, predicted dates, and expected biomass at historical spawning locations.
 
 ## Data Source
 
