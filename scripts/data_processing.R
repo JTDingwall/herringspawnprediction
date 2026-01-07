@@ -1,6 +1,6 @@
 # Load required libraries
 required_packages <- c(
-  "ggplot2", "dplyr", "readxl", "tidyr", "lubridate", "tidyverse", "writexl", "AER", "mgcv","terra", "sf", "viridis", "tidyterra", "patchwork", "cowplot", "grid", "rsvg", "ggpubr", "ggridges", "irr", "ggspatial", "purrr", "ggthemes", "ggrepel", "arcgis", "elevatr", "rayshader", "leaflet", "randomForest", "mgcv"
+  "ggplot2", "dplyr", "readxl", "tidyr", "lubridate", "tidyverse", "writexl", "AER", "mgcv","terra", "sf", "viridis", "tidyterra", "patchwork", "cowplot", "grid", "rsvg", "ggpubr", "ggridges", "irr", "ggspatial", "purrr", "ggthemes", "ggrepel", "arcgis", "elevatr", "rayshader", "leaflet", "randomForest", "mgcv", "htmltools", "htmlwidgets"
 )
 
 for (pkg in required_packages) {
