@@ -36,8 +36,7 @@ index = Understory + Macrocystis + Surface
 **Rationale**:
 - Some locations have recorded spawns but zero biomass (spawn known to occur but not surveyed)
 - Predictions require actual biomass measurements, not just presence/absence
-- Minimum of 2 events needed to calculate variability metrics (standard deviation)
-- Ensures predictions are based on empirical data, not speculation
+- Ensures predictions are based on core spawns, not one offs
 
 **Implementation**:
 ```r
@@ -49,28 +48,13 @@ locations_with_data <- spawn_data %>%
 
 ### 3. Temporal Scope
 
-**Decision**: Use 2015-2024 data (10-year window)
+**Decision**: Use 2016-2025 data (10-year window)
 
 **Rationale**:
 - Recent data more relevant for current predictions
 - Balances between sufficient sample size and temporal relevance
-- Captures recent environmental/ecological trends
-- Aligns with typical fisheries management timeframes
+- Captures recent environmental/behavioural trends
 
-### 4. Date Representation
-
-**Decision**: Convert dates to Day-of-Year (DOY) for analysis
-
-**Rationale**:
-- Standardizes timing across years (e.g., Feb 15 = day 46)
-- Enables calculation of average spawn timing
-- Facilitates identification of early/late spawns
-- Simplifies statistical modeling
-
-**Implementation**:
-```r
-StartDOY = yday(StartDate)  # lubridate function
-```
 
 ## Prediction Methodology
 
@@ -81,12 +65,6 @@ StartDOY = yday(StartDate)  # lubridate function
 **Formula**:
 - Predicted date = Average DOY across 2016-2025
 - 95% CI = Predicted DOY ± 1.96 × Standard Deviation
-
-**Rationale**:
-- Simple, transparent, interpretable
-- Directly reflects observed historical patterns
-- Confidence intervals capture natural variability
-- Alternative GAM models were tested but showed over-fitting
 
 **Example**: 
 - Cape Lazo: Average DOY = 68 (March 9)
@@ -105,7 +83,6 @@ StartDOY = yday(StartDate)  # lubridate function
 - Only measured spawns used (index > 0)
 - Reflects typical spawn magnitude at each location
 - Variability bounds indicate uncertainty
-- Conservative approach appropriate for management applications
 
 ### Spawn Probability
 
@@ -126,12 +103,10 @@ spawn_probability = (frequency_score × 0.5) +
 
 2. **Recency Score (30% weight)**:
    - 2025 spawn = 1.0
-   - 2024 spawn = 0.9
-   - 2023 spawn = 0.6
+   - 2024 spawn = 0.8
+   - 2023 spawn = 0.5
    - 2020-2022 = 0.4
    - Pre-2020 = 0.2
-   - 2019-2021 = 0.5
-   - Pre-2019 = 0.3
    - Recent spawns increase probability
 
 3. **Consistency Score (20% weight)**:
@@ -187,79 +162,18 @@ The Leaflet map displays:
 - Historical patterns reflect future conditions
 - No major environmental regime shifts
 - Survey methodology consistent across years
-- Missing data (NA) in biomass components = not surveyed (treated as 0)
 
 ### Limitations
-- Climate change may alter spawn timing/locations
 - Does not account for fish population dynamics
 - Assumes spawn probability independent across locations
 - Limited to locations with historical measurements
 
-### Strengths
-- Based on 10 years of empirical data
-- Transparent, reproducible methodology
-- Quantifies uncertainty with confidence intervals
-- Conservative predictions appropriate for management
-
-## Usage
-
-### Requirements
-
-Install required R packages:
-```r
-install.packages(c("dplyr", "lubridate", "leaflet", "ggpubr", 
-                   "sf", "tidyr", "readr"))
-```
-
-### Running the Analysis
-
-1. Clone this repository
-2. Ensure `raw_data/Pacific_herring_spawn_index_data_2025_EN.csv` is present
-3. Open RStudio and run:
-
-```r
-source("scripts/data_processing.R")
-```
-
-The script will:
-- Load and process the data
-- Generate 2026 predictions
-- Create an interactive map (displayed in Viewer pane)
-- Print summary statistics to console
-- Display top 10 locations and earliest spawns
-
-### Output
-
-**Console Output**:
-- Total locations analyzed
-- Probability tier breakdown
-- Predicted spawn season range
-- Top 10 locations by biomass
-- Earliest predicted spawns
-
-**Map Output**:
-- Interactive HTML map
-- Click locations for detailed popups
-- Pan/zoom for exploration
-
-## Project Structure
-
-```
-herringspawnprediction/
-├── README.md                    # This file
-├── scripts/
-│   └── data_processing.R        # Main analysis script
-└── raw_data/
-    └── Pacific_herring_spawn_index_data_2025_EN.csv
-```
-
 ## Author
 
-Developed for Pacific herring spawn prediction and management applications.
+Developed by Jake Dingwall
 
 ## Data Citation
-
-Fisheries and Oceans Canada. Pacific Herring Spawn Index Data. 2025 Edition.
+Fisheries and Oceans Canada (DFO). (2026). Pacific Herring Spawn Index Data [Data set]. https://open.canada.ca/data/en/dataset/d892511c-d851-4f85-a0ec-708bc05d2810
 
 ## License
 
