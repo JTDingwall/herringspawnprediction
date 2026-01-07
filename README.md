@@ -18,7 +18,7 @@ The dataset includes:
 ## Interactive Map
 [![Map Preview](raw_data/map_screenshot.png)](https://jtdingwall.github.io/herringspawnprediction/)
 
-*Click the image above to view the interactive map.*
+***Click the image above to view the interactive map.***
 
 
 ## Data Processing Decisions
